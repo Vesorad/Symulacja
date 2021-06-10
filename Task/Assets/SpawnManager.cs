@@ -10,7 +10,6 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private GameObject agent;
     [SerializeField] [Range(2, 10)] private float timeToSpawn = 2;
     [SerializeField] private List<GameObject> agents;
-
     private float _timer;
     private int _multiple = 30;
 
