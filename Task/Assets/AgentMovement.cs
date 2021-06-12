@@ -66,7 +66,6 @@ public class AgentMovement : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("Oberwałem"+gameObject.name);
             hp -= 1;
             if (selected)
             {
