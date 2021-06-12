@@ -7,22 +7,26 @@ using Random = System.Random;
 
 public class SpawnManager : MonoBehaviour
 {
-    [SerializeField] private GameObject agent;
+    [Header("To Fill")] [SerializeField] private GameObject agent;
     [SerializeField] private UIManager uIManager;
-    [SerializeField] [Range(2, 10)] private float timeToSpawn = 2;
+
+    [Header("To Change")] [SerializeField] [Range(2, 10)]
+    private float timeToSpawn = 2;
+
     public List<AgentMovement> agents;
+
     private float _timer;
     private int _multiple = 30;
 
     private void Awake()
     {
         _timer = timeToSpawn;
-      SpawnObjectsOnStart();
+        SpawnObjectsOnStart();
     }
 
     private void SpawnObjectsOnStart()
     {
-        for (int i = 0; i < _multiple; i++)
+        for (int i = 0; i < _multiple; i++) // Spawn wszystkich obiektów na początku rozgrywki (zastosowanie PoolObject)
         {
             var newAgent = Instantiate(agent);
             newAgent.GetComponent<AgentMovement>().spawnManager = this;
@@ -32,9 +36,10 @@ public class SpawnManager : MonoBehaviour
             newAgent.SetActive(false);
         }
     }
+
     private void Update()
     {
-        _timer -= Time.deltaTime;
+        _timer -= Time.deltaTime; // licznik aktywuyjący agnetó
         if (_timer <= 0)
         {
             ShowAgent();
@@ -49,7 +54,7 @@ public class SpawnManager : MonoBehaviour
         {
             if (!agents[i].gameObject.activeInHierarchy)
             {
-                Vector3 pos = new Vector3(random.Next(2, 10), 1.5f, random.Next(-10, -2));
+                Vector3 pos = new Vector3(random.Next(2, 10), 1.5f, random.Next(-10, -2)); // randomizacja pozycji aktywowanego agenta
                 agents[i].transform.position = pos;
                 agents[i].gameObject.SetActive(true);
                 return;
