@@ -44,19 +44,17 @@ public class AgentMovement : MonoBehaviour
             VARIABLE.ChangeColorToWhite();
             VARIABLE.selected = false;
         }
-        if (!selected)
-        {
-            Debug.Log("1");
-            _myMaterial.material.color = Color.gray;
-            uIManager.UpdateText(this);
-            selected = true;
-        }
-
         if (selected)
         {
             selected = false;
             ChangeColorToWhite();
             uIManager.ClearText();
+        }
+        if (!selected)
+        {
+            _myMaterial.material.color = Color.gray;
+            uIManager.UpdateText(this);
+            selected = true;
         }
     }
 
@@ -76,10 +74,16 @@ public class AgentMovement : MonoBehaviour
             }
             if (hp <= 0)
             {
-                uIManager.ClearText();
-                gameObject.SetActive(false);
+                Death();
             }
         }
+    }
+    private void Death()
+    {
+        selected = false;
+        uIManager.ClearText();
+        ChangeColorToWhite();
+        gameObject.SetActive(false);
     }
    
 }
