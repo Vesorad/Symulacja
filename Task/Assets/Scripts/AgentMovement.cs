@@ -10,8 +10,9 @@ public class AgentMovement : MonoBehaviour
     [HideInInspector] public SpawnManager spawnManager;
     [HideInInspector] public UIManager  uIManager;
     [HideInInspector] public int hp = 3;
-    
+    [Header("Prędość postaci")]
     [SerializeField] private float speed;
+    [Header("To Fill")]
     [SerializeField] private Rigidbody rb;
 
     private Renderer _myMaterial;
@@ -24,6 +25,7 @@ public class AgentMovement : MonoBehaviour
 
     private void OnEnable()
     {
+        //Po aktywacji agenta zmieniamy jego rotacje na randomową z wybranej póli oraz pchamy go przed siebie
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         Rotate();
@@ -38,26 +40,24 @@ public class AgentMovement : MonoBehaviour
 
     private void OnMouseDown()
     {
-       
-        foreach (var VARIABLE in spawnManager.agents)
+        foreach (var VARIABLE in spawnManager.agents) // wyłącznie wszystkich obkietów
         {
             VARIABLE.ChangeColorToWhite();
             VARIABLE.selected = false;
         }
-        if (selected)
+        if (selected) // odznaczenie wybranego agneta
         {
             selected = false;
             ChangeColorToWhite();
             uIManager.ClearText();
         }
-        if (!selected)
+        if (!selected) // wybranie agenta
         {
             _myMaterial.material.color = Color.gray;
             uIManager.UpdateText(this);
             selected = true;
         }
     }
-
     public void ChangeColorToWhite()
     {
         _myMaterial.material.color = Color.white;
